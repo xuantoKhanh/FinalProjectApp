@@ -16,7 +16,7 @@
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:layout_height="wrap_content">
             <TextView
@@ -24,9 +24,13 @@
                 android:text="Sp02"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:background="@color/black"
+            android:layout_height="match_parent"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:layout_height="wrap_content">
             <TextView
@@ -34,9 +38,13 @@
                 android:text="Heart Rate"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:background="@color/black"
+            android:layout_height="match_parent"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:gravity="center"
             android:layout_height="wrap_content">
             <TextView
@@ -45,12 +53,16 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"/>
         </LinearLayout>
-
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="1dp"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listView1"
+        android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
         />
 

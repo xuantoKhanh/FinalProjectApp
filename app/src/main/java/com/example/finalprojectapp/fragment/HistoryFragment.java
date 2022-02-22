@@ -10,27 +10,31 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalprojectapp.Data;
+import com.example.finalprojectapp.DataAdapter;
 import com.example.finalprojectapp.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HistoryFragment extends Fragment {
 
-    private ListView listView1;
-    private RecyclerView view;
 
-    FirebaseDatabase database;
-    DatabaseReference mHR, mSP;
-    private ArrayList<String> mUsers1 = new ArrayList<>();
-
+    private RecyclerView recycleView;
+    private DataAdapter mdataAdapter;
+    private List<Data> mlistData;
 
 
 
@@ -41,44 +45,47 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
 
-        database = FirebaseDatabase.getInstance();
-        mHR = database.getReference("Storing");
+        //khoi tao
+        recycleView = (RecyclerView) view.findViewById(R.id.recycleView);
+        LinearLayoutManager linearLayoutManager;
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recycleView.setLayoutManager(linearLayoutManager);
 
-        listView1 = (ListView) view.findViewById(R.id.listView1);
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+//        recycleView.addItemDecoration(dividerItemDecoration);
 
-        final ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mUsers1);
+        mlistData = new ArrayList<>();
+        mdataAdapter = new DataAdapter(mlistData);
+        recycleView.setAdapter(mdataAdapter);
+        getListDatafromDatabase();
 
-        listView1.setAdapter(arrayAdapter1);
 
+        return view;
+    }
 
-        mHR.addChildEventListener(new ChildEventListener() {
+    private void getListDatafromDatabase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Store");
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String value1 = snapshot.getValue(String.class);
-                mUsers1.add(value1);
-                arrayAdapter1.notifyDataSetChanged();
-            }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Data data1 = snapshot.getValue(Data.class);
+                        mlistData.add(data1);
+                mdataAdapter.notifyDataSetChanged();
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                }
 
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-        return view;
+
     }
+
+
 }
