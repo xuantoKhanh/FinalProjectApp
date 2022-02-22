@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class HistoryFragment extends Fragment {
 
     private ListView listView1, listView2;
-    private RecyclerView ivew;
+    private RecyclerView view;
 
     FirebaseDatabase database;
     DatabaseReference mHR, mSP;
