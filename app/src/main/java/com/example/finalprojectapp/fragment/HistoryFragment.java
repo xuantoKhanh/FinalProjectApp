@@ -10,6 +10,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalprojectapp.R;
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class HistoryFragment extends Fragment {
 
     private ListView listView1, listView2;
+    private RecyclerView ivew;
 
     FirebaseDatabase database;
     DatabaseReference mHR, mSP;
