@@ -51,39 +51,43 @@ public class HistoryFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
 
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
-//        recycleView.addItemDecoration(dividerItemDecoration);
 
-        mListData = new ArrayList<>();
+        mListData = new ArrayList<Data>();
         mdataAdapter = new DataAdapter(mListData);
         recycleView.setAdapter(mdataAdapter);
         getListDatafromDatabase();
+        //getDatatoObject();
+
 
 
         return view;
     }
 
-    private void getListDatafromDatabase(){
+    private void getListDatafromDatabase() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Store");
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Data data1 = snapshot.getValue(Data.class);
-                        mListData.add(data1);
-                mdataAdapter.notifyDataSetChanged();
-
-                }
-
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                if(mListData != null){
+//                    mListData.clear();
+//                }
+//                        Data da = snapshot.getValue(Data.class);
+//                        mListData.add(da);
+//                mdataAdapter.notifyDataSetChanged();
+//
+//                }
+//
+//
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 

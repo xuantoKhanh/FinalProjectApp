@@ -30,13 +30,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DataViewHolder holder, int position) {
-        Data data = mListData.get(position);
-        if(data == null) {
+        Data data1 = mListData.get(position);
+        if(data1 == null) {
             return;
         }
-        holder.tvSp.setText(" " + data.getSp());
-        holder.tvHR.setText(" " + data.getHr());
-        holder.tvTime.setText(" " + data.getTime());
+        holder.tvSp.setText(" " + data1.getSp());
+        holder.tvHR.setText(" " + data1.getHr());
+        holder.tvTime.setText(" " + data1.getTime());
 
     }
 

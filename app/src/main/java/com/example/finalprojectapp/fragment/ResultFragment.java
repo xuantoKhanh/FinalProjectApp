@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.finalprojectapp.Data;
 import com.example.finalprojectapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ResultFragment extends Fragment {
 
     DatabaseReference mData;
-    TextView textViewHR, textViewSpo2;
+    TextView textViewHR, textViewSpo2, text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,12 +30,12 @@ public class ResultFragment extends Fragment {
 
         textViewSpo2 = (TextView) view.findViewById(R.id.spValue);
         textViewHR = (TextView) view.findViewById(R.id.hrValue);
+        text = (TextView) view.findViewById(R.id.banner) ;
 
         mData = FirebaseDatabase.getInstance().getReference();
-        mData.child("Heart rate").setValue("--"); //phải setValue app mới chạy
-        mData.child("SpO2").setValue("--");
 
-        mData.child("Heart rate").addValueEventListener(new ValueEventListener() {
+
+        mData.child("Store/hr").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 textViewHR.setText(snapshot.getValue().toString());
@@ -46,7 +47,7 @@ public class ResultFragment extends Fragment {
             }
         });
 
-        mData.child("SpO2").addValueEventListener(new ValueEventListener() {
+        mData.child("Store/sp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 textViewSpo2.setText(snapshot.getValue().toString());
@@ -58,6 +59,25 @@ public class ResultFragment extends Fragment {
             }
         });
 
+        getDatatoObject();
+
         return view;
+    }
+    public void getDatatoObject(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Store");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Data data = snapshot.getValue(Data.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

@@ -8,7 +8,7 @@ public class Data {
     public Data() {
     }
 
-    public Data(String spValue, String hr, String time) {
+    public Data(String sp, String hr, String time) {
         this.sp = sp;
         this.hr = hr;
         this.time    = time;
@@ -38,5 +38,12 @@ public class Data {
         this.time = time;
     }
 
-
+    @Override
+    public String toString() {
+        return "Data{" +
+                "time='" + time + '\'' +
+                ", hr='" + hr + '\'' +
+                ", sp='" + sp + '\'' +
+                '}';
+    }
 }
