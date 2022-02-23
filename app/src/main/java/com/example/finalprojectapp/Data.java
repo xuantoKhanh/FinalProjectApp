@@ -3,38 +3,37 @@ package com.example.finalprojectapp;
 public class Data {
 
 
-    private String time, hrValue, spValue;
+    private String time, hr, sp;
 
     public Data() {
     }
 
-    public Data(String spValue, String hrValue, String time) {
-        this.spValue = spValue;
-        this.hrValue = hrValue;
+    public Data(String spValue, String hr, String time) {
+        this.sp = sp;
+        this.hr = hr;
         this.time    = time;
 
     }
 
-    public String getHrValue() {
-        return hrValue;
+    public String getHr() {
+        return hr;
     }
 
-    public void setHrValue(String hrValue) {
-        this.hrValue = hrValue;
+    public void setHr(String hr) {
+        this.hr = hr;
     }
 
-    public String getSpValue() {
-        return spValue;
+    public String getSp() {
+        return sp;
     }
 
-    public void setSpValue(String spValue) {
-        this.spValue = spValue;
+    public void setSp(String sp) {
+        this.sp = sp;
     }
 
     public String getTime() {
         return time;
     }
-
     public void setTime(String time) {
         this.time = time;
     }

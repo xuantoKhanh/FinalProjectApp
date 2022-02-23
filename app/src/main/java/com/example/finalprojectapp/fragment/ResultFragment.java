@@ -31,8 +31,8 @@ public class ResultFragment extends Fragment {
         textViewHR = (TextView) view.findViewById(R.id.hrValue);
 
         mData = FirebaseDatabase.getInstance().getReference();
-        mData.child("Heart rate").setValue("0.00"); //phải setValue app mới chạy
-        mData.child("SpO2").setValue("0.00");
+        mData.child("Heart rate").setValue("--"); //phải setValue app mới chạy
+        mData.child("SpO2").setValue("--");
 
         mData.child("Heart rate").addValueEventListener(new ValueEventListener() {
             @Override

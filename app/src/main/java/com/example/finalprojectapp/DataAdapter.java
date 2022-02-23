@@ -34,8 +34,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         if(data == null) {
             return;
         }
-        holder.tvSp.setText(" " + data.getSpValue());
-        holder.tvHR.setText(" " + data.getHrValue());
+        holder.tvSp.setText(" " + data.getSp());
+        holder.tvHR.setText(" " + data.getHr());
         holder.tvTime.setText(" " + data.getTime());
 
     }

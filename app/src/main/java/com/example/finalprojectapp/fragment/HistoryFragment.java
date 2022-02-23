@@ -34,7 +34,7 @@ public class HistoryFragment extends Fragment {
 
     private RecyclerView recycleView;
     private DataAdapter mdataAdapter;
-    private List<Data> mlistData;
+    private List<Data> mListData;
 
 
 
@@ -54,8 +54,8 @@ public class HistoryFragment extends Fragment {
 //        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
 //        recycleView.addItemDecoration(dividerItemDecoration);
 
-        mlistData = new ArrayList<>();
-        mdataAdapter = new DataAdapter(mlistData);
+        mListData = new ArrayList<>();
+        mdataAdapter = new DataAdapter(mListData);
         recycleView.setAdapter(mdataAdapter);
         getListDatafromDatabase();
 
@@ -71,7 +71,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Data data1 = snapshot.getValue(Data.class);
-                        mlistData.add(data1);
+                        mListData.add(data1);
                 mdataAdapter.notifyDataSetChanged();
 
                 }
