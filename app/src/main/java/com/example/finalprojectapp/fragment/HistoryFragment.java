@@ -1,6 +1,7 @@
 package com.example.finalprojectapp.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finalprojectapp.Data;
 import com.example.finalprojectapp.DataAdapter;
 import com.example.finalprojectapp.R;
+import com.example.finalprojectapp.UIModel;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -33,8 +36,9 @@ public class HistoryFragment extends Fragment {
 
 
     private RecyclerView recycleView;
-    private DataAdapter mdataAdapter;
-    private List<Data> mListData;
+    public static DataAdapter mdataAdapter;
+    public static Boolean isResume = false;
+    private ArrayList<Data> listHistory = new ArrayList<>();
 
 
 
@@ -50,12 +54,14 @@ public class HistoryFragment extends Fragment {
         LinearLayoutManager linearLayoutManager;
         linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
+        if(ResultFragment.spf != null){
+            listHistory = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"),new TypeToken<ArrayList<Data>>() {
+            }.getType() );
 
-
-        mListData = new ArrayList<Data>();
-        mdataAdapter = new DataAdapter(mListData);
+        }
+        mdataAdapter = new DataAdapter();
+        mdataAdapter.setDatas(listHistory);
         recycleView.setAdapter(mdataAdapter);
-        getListDatafromDatabase();
         //getDatatoObject();
 
 
@@ -63,33 +69,16 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
-    private void getListDatafromDatabase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Store");
-
-//        myRef.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        isResume = true;
+//        new Handler().postDelayed(new Runnable() {
 //            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                if(mListData != null){
-//                    mListData.clear();
-//                }
-//                        Data da = snapshot.getValue(Data.class);
-//                        mListData.add(da);
-//                mdataAdapter.notifyDataSetChanged();
-//
-//                }
-//
-//
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
+//            public void run() {
+//                //Do something after 100ms
 //            }
-//        });
-
+//        }, 2);
+//        mdataAdapter.setListaData(ResultFragment.mList);
     }
-
-
 }

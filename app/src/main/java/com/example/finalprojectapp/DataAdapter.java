@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>{
@@ -15,10 +16,21 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public DataAdapter(List<Data> mListData) {
         this.mListData = mListData;
     }
+    public DataAdapter() {
+    }
 
     private List<Data> mListData;
 
+    public void setListaData(Data datas){
+        mListData.add(datas);
+        notifyDataSetChanged();
+    }
 
+    public void setDatas(ArrayList<Data> datas){
+        mListData = new ArrayList<>();
+        mListData.addAll(datas);
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
