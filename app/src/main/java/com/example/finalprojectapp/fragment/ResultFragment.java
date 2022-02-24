@@ -105,6 +105,7 @@ public class ResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Data data = snapshot.getValue(Data.class);
                 Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
+
                 if (data != null) {
                     mList.add(data);
                     getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));

@@ -51,20 +51,21 @@ public class HistoryFragment extends Fragment {
 
         //khoi tao
         recycleView = (RecyclerView) view.findViewById(R.id.recycleView);
-        LinearLayoutManager linearLayoutManager;
-        linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recycleView.setLayoutManager(linearLayoutManager);
+
         if(ResultFragment.spf != null){
             listHistory = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"),new TypeToken<ArrayList<Data>>() {
             }.getType() );
 
         }
+
         mdataAdapter = new DataAdapter();
         mdataAdapter.setDatas(listHistory);
         recycleView.setAdapter(mdataAdapter);
-        //getDatatoObject();
 
-
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        recycleView.addItemDecoration(itemDecoration);
 
         return view;
     }
@@ -73,12 +74,5 @@ public class HistoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         isResume = true;
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //Do something after 100ms
-//            }
-//        }, 2);
-//        mdataAdapter.setListaData(ResultFragment.mList);
     }
 }

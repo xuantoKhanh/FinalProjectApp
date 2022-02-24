@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProjectApp">
         <activity
-            android:label="Measurement resutl"
+            android:label="Pulse Oximeter Monitor"
             android:name=".Measurement_Results"
             android:exported="true">
             <intent-filter >
