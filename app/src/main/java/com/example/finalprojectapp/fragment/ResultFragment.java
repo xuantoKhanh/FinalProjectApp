@@ -40,9 +40,14 @@ public class ResultFragment extends Fragment {
         text = (TextView) view.findViewById(R.id.banner);
         getSPFInstance();
         mData = FirebaseDatabase.getInstance().getReference();
+        String keys = "";
+        keys = ResultFragment.spf.getString("LISTDATA");
+        if (!keys.equalsIgnoreCase(""))
+            mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
+            }.getType());
+        getDatatoObject();
 
-
-        mData.child("Store/hr").addValueEventListener(new ValueEventListener() {
+        mData.child("Heart rate").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("HR -- ", snapshot.getValue().toString());
@@ -55,7 +60,7 @@ public class ResultFragment extends Fragment {
             }
         });
 
-        mData.child("Store/sp").addValueEventListener(new ValueEventListener() {
+        mData.child("SpO2").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("SP -- ", snapshot.getValue().toString());
@@ -67,9 +72,7 @@ public class ResultFragment extends Fragment {
 
             }
         });
-        mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
-        }.getType());
-        getDatatoObject();
+
 
         return view;
     }
@@ -82,14 +85,34 @@ public class ResultFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Data data = snapshot.getValue(Data.class);
-                mList.add(data);
-                getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
-                Log.e("mList", mList.size() + "");
-
-                if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
-                    HistoryFragment.mdataAdapter.setListaData(data);
+                Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
+                if (data != null) {
+                    mList.add(data);
+                    getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
+                    Log.e("mList", mList.size() + "");
+                    if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
+                        HistoryFragment.mdataAdapter.setListaData(data);
+                    }
                 }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Data data = snapshot.getValue(Data.class);
+                Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
+                if (data != null) {
+                    mList.add(data);
+                    getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
+                    Log.e("mList", mList.size() + "");
+                    if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
+                        HistoryFragment.mdataAdapter.setListaData(data);
+                    }
+                }
             }
 
             @Override
@@ -98,6 +121,37 @@ public class ResultFragment extends Fragment {
             }
         });
     }
+//
+//    private void getListItems() {
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("Store");
+//
+//        myRef.collection("some collection").get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot documentSnapshots) {
+//                        if (documentSnapshots.isEmpty()) {
+//                            Log.d(TAG, "onSuccess: LIST EMPTY");
+//                            return;
+//                        } else {
+//                            // Convert the whole Query Snapshot to a list
+//                            // of objects directly! No need to fetch each
+//                            // document.
+//                            List<Type> types = documentSnapshots.toObjects(Type.class);
+//
+//                            // Add all to your list
+//                            mList.addAll(types);
+//                            Log.d(TAG, "onSuccess: " + mArrayList);
+//                        }
+//                    });
+//                            .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                }
+//    }
 
     public static MySharedPreferences spf;
 
@@ -106,5 +160,11 @@ public class ResultFragment extends Fragment {
             spf = new MySharedPreferences(getContext());
         }
         return spf;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 }

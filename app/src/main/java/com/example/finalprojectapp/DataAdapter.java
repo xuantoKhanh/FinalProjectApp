@@ -27,9 +27,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     }
 
     public void setDatas(ArrayList<Data> datas){
-        mListData = new ArrayList<>();
-        mListData.addAll(datas);
-        notifyDataSetChanged();
+        if(datas != null && !datas.isEmpty()) {
+            mListData = new ArrayList<>();
+            mListData.addAll(datas);
+            notifyDataSetChanged();
+        }
+
     }
 
     @NonNull
