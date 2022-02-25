@@ -1,4 +1,4 @@
-package com.example.finalprojectapp;
+package com.example.finalprojectapp.HistoryData;
 
 import android.content.Context;
 

@@ -1,35 +1,22 @@
 package com.example.finalprojectapp.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finalprojectapp.Data;
-import com.example.finalprojectapp.DataAdapter;
+import com.example.finalprojectapp.HistoryData.Data;
+import com.example.finalprojectapp.HistoryData.DataAdapter;
 import com.example.finalprojectapp.R;
-import com.example.finalprojectapp.UIModel;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.finalprojectapp.HistoryData.UIModel;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HistoryFragment extends Fragment {
@@ -38,7 +25,7 @@ public class HistoryFragment extends Fragment {
     private RecyclerView recycleView;
     public static DataAdapter mdataAdapter;
     public static Boolean isResume = false;
-    private ArrayList<Data> listHistory = new ArrayList<>();
+    private static ArrayList<Data> listHistory = new ArrayList<>();
 
 
 

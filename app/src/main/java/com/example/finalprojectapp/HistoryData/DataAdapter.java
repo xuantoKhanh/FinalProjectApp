@@ -1,4 +1,4 @@
-package com.example.finalprojectapp;
+package com.example.finalprojectapp.HistoryData;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.finalprojectapp.R;
+import com.example.finalprojectapp.fragment.HistoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +67,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         holder.layoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListData.remove(holder.getAdapterPosition());
+//                HistoryFragment.listHistory.mListData.remove(holder.getAdapterPosition());
+               mListData.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
-
             }
         });
     }

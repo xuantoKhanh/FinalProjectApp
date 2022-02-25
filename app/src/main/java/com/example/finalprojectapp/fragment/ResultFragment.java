@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.finalprojectapp.Data;
-import com.example.finalprojectapp.MySharedPreferences;
+import com.example.finalprojectapp.HistoryData.Data;
+import com.example.finalprojectapp.HistoryData.MySharedPreferences;
 import com.example.finalprojectapp.R;
-import com.example.finalprojectapp.UIModel;
+import com.example.finalprojectapp.HistoryData.UIModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -100,27 +100,27 @@ public class ResultFragment extends Fragment {
             }
         });
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Data data = snapshot.getValue(Data.class);
-                Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
-
-                if (data != null) {
-                    mList.add(data);
-                    getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
-                    Log.e("mList", mList.size() + "");
-                    if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
-                        HistoryFragment.mdataAdapter.setListaData(data);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Data data = snapshot.getValue(Data.class);
+//                Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
+//
+//                if (data != null) {
+//                    mList.add(data);
+//                    getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
+//                    Log.e("mList", mList.size() + "");
+//                    if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
+//                        HistoryFragment.mdataAdapter.setListaData(data);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 //
 //    private void getListItems() {
