@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.finalprojectapp.HistoryData.Data;
 import com.example.finalprojectapp.HistoryData.MySharedPreferences;
+import com.example.finalprojectapp.Measurement_Results;
 import com.example.finalprojectapp.R;
 import com.example.finalprojectapp.HistoryData.UIModel;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,7 @@ public class ResultFragment extends Fragment {
         if (!keys.equalsIgnoreCase(""))
             mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
             }.getType());
+
         getDatatoObject();
 
         mData.child("Heart rate").addValueEventListener(new ValueEventListener() {
@@ -52,6 +55,14 @@ public class ResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("HR -- ", snapshot.getValue().toString());
                 textViewHR.setText(snapshot.getValue().toString());
+                Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
+
+                float i = Float.parseFloat(snapshot.getValue().toString());
+                if(i<60.00 && i >100.00){
+                    Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
+                }
+
+
             }
 
             @Override
@@ -74,6 +85,7 @@ public class ResultFragment extends Fragment {
         });
 
 
+
         return view;
     }
 
@@ -86,6 +98,7 @@ public class ResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Data data = snapshot.getValue(Data.class);
                 Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
+
                 if (data != null) {
                     mList.add(data);
                     getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
@@ -100,62 +113,9 @@ public class ResultFragment extends Fragment {
             }
         });
 
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Data data = snapshot.getValue(Data.class);
-//                Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
-//
-//                if (data != null) {
-//                    mList.add(data);
-//                    getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
-//                    Log.e("mList", mList.size() + "");
-//                    if (HistoryFragment.isResume && HistoryFragment.mdataAdapter != null) {
-//                        HistoryFragment.mdataAdapter.setListaData(data);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
-//
-//    private void getListItems() {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("Store");
-//
-//        myRef.collection("some collection").get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot documentSnapshots) {
-//                        if (documentSnapshots.isEmpty()) {
-//                            Log.d(TAG, "onSuccess: LIST EMPTY");
-//                            return;
-//                        } else {
-//                            // Convert the whole Query Snapshot to a list
-//                            // of objects directly! No need to fetch each
-//                            // document.
-//                            List<Type> types = documentSnapshots.toObjects(Type.class);
-//
-//                            // Add all to your list
-//                            mList.addAll(types);
-//                            Log.d(TAG, "onSuccess: " + mArrayList);
-//                        }
-//                    });
-//                            .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getApplicationContext(), "Error getting data!!!", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//                }
-//    }
 
     public static MySharedPreferences spf;
-
     public MySharedPreferences getSPFInstance() {
         if (spf == null) {
             spf = new MySharedPreferences(getContext());

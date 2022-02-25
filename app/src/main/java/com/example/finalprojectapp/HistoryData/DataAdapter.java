@@ -67,8 +67,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
         holder.layoutDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                HistoryFragment.listHistory.mListData.remove(holder.getAdapterPosition());
-               mListData.remove(holder.getAdapterPosition());
+//                HistoryFragment.mdataAdapter.mListData.remove(holder.getAdapterPosition());
+                mListData.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
             }
         });
