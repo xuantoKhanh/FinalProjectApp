@@ -29,10 +29,6 @@ public class SettingFragment extends Fragment {
         sound = MediaPlayer.create(getContext(), R.raw.heartbeat2);
         Switch aSwitch = (Switch) view.findViewById(R.id.soundswitch);
 
-       //Save switch state in shared preferences
-//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("name", Context.MODE_PRIVATE);
-//        aSwitch.setChecked(sharedPreferences.getBoolean("value", true));
-
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -47,41 +43,6 @@ public class SettingFragment extends Fragment {
 
             }
         });
-
-//        aSwitch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//             //   boolean checked = ((Switch) v).isChecked();
-//                if (aSwitch.isChecked()){
-//                    //when switch checked
-//                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("name", Context.MODE_PRIVATE).edit();
-//                    editor.putBoolean("value", true);
-//                    editor.apply();
-//                    //aSwitch.setChecked(true);
-//                    sound.start();
-//                }
-//                else{
-//                    //when switch is unchecked
-//                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("name", Context.MODE_PRIVATE).edit();
-//                    editor.putBoolean("value", false);
-//                    editor.apply();
-//                    //aSwitch.setChecked(false);
-//                    sound.stop();
-//                }
-//            }
-//        });
-
-
         return view;
     }
-
-//    public void onCheckedChange(CompoundButton buttonView, boolean isChecked){
-//        if(isChecked){
-//            sound.start();
-//                } else {
-//                    sound.stop();
-//                }
-//
-//
-//    }
 }

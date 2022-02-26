@@ -4,14 +4,25 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/heartpulse"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProjectApp">
         <activity
-            android:label="Pulse Oximeter Monitor"
+            android:name=".login.ForgotPassword"
+            android:exported="false"
+            />
+        <activity
             android:name=".Measurement_Results"
+            android:exported="false" />
+        <activity
+            android:name=".login.RegisterActivity"
+            android:exported="false" />
+
+        <activity
+            android:label="Pulse Oxime"
+            android:name=".login.MainActivity"
             android:exported="true">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
