@@ -27,9 +27,12 @@ import java.util.ArrayList;
 
 public class ResultFragment extends Fragment {
 
+    Float i;
+
     DatabaseReference mData;
     TextView textViewHR, textViewSpo2, text;
     public static ArrayList<Data> mList = new ArrayList<>();
+    String keys = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,12 +45,10 @@ public class ResultFragment extends Fragment {
         text = (TextView) view.findViewById(R.id.banner);
         getSPFInstance();
         mData = FirebaseDatabase.getInstance().getReference();
-        String keys = "";
         keys = ResultFragment.spf.getString("LISTDATA");
         if (!keys.equalsIgnoreCase(""))
             mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
             }.getType());
-
         getDatatoObject();
 
         mData.child("Heart rate").addValueEventListener(new ValueEventListener() {
@@ -55,10 +56,10 @@ public class ResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("HR -- ", snapshot.getValue().toString());
                 textViewHR.setText(snapshot.getValue().toString());
-                Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
 
                 float i = Float.parseFloat(snapshot.getValue().toString());
-                if(i<60.00 && i >100.00){
+                if (i < 60.00 || i > 100.00) {
                     Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
                 }
 
@@ -85,7 +86,6 @@ public class ResultFragment extends Fragment {
         });
 
 
-
         return view;
     }
 
@@ -100,6 +100,9 @@ public class ResultFragment extends Fragment {
                 Log.e("Go here", UIModel.getInstance().provideGSon().toJson(data));
 
                 if (data != null) {
+                    if (!keys.equalsIgnoreCase(""))
+                        mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
+                        }.getType());
                     mList.add(data);
                     getSPFInstance().setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mList));
                     Log.e("mList", mList.size() + "");
@@ -108,6 +111,7 @@ public class ResultFragment extends Fragment {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -116,6 +120,7 @@ public class ResultFragment extends Fragment {
     }
 
     public static MySharedPreferences spf;
+
     public MySharedPreferences getSPFInstance() {
         if (spf == null) {
             spf = new MySharedPreferences(getContext());

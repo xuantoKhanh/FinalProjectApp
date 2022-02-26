@@ -13,13 +13,15 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.finalprojectapp.R;
 import com.example.finalprojectapp.fragment.HistoryFragment;
+import com.example.finalprojectapp.fragment.ResultFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder>{
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
     private List<Data> mListData;
+
     public DataAdapter(List<Data> mListData) {
         this.mListData = mListData;
     }
@@ -29,13 +31,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public DataAdapter() {
     }
 
-    public void setListaData(Data datas){
+    public void setListaData(Data datas) {
         mListData.add(datas);
         notifyDataSetChanged();
     }
 
-    public void setDatas(ArrayList<Data> datas){
-        if(datas != null && !datas.isEmpty()) {
+    public void setDatas(ArrayList<Data> datas) {
+        if (datas != null && !datas.isEmpty()) {
             mListData = new ArrayList<>();
             mListData.addAll(datas);
             notifyDataSetChanged();
@@ -55,7 +57,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
     public void onBindViewHolder(@NonNull DataViewHolder holder, int position) { //gán data và ánh xạ view
 
         Data data1 = mListData.get(position);
-        if(data1 == null) {
+        if (data1 == null) {
             return;
         }
 
@@ -69,6 +71,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
             public void onClick(View v) {
 //                HistoryFragment.mdataAdapter.mListData.remove(holder.getAdapterPosition());
                 mListData.remove(holder.getAdapterPosition());
+                if (ResultFragment.spf != null)
+                    ResultFragment.spf.setString("LISTDATA", UIModel.getInstance().provideGSon().toJson(mListData));
                 notifyItemRemoved(holder.getAdapterPosition());
             }
         });
@@ -76,7 +80,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
 
     @Override
     public int getItemCount() { //trả item tại vị trí postion
-        if(mListData != null){
+        if (mListData != null) {
             return mListData.size();
         }
         return 0;
@@ -92,9 +96,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataViewHolder
             super(itemView);
 
             swipeRevealLayout = itemView.findViewById(R.id.swipe);
-            layoutDelete      = itemView.findViewById(R.id.layout_deleter);
-            tvSp   = itemView.findViewById(R.id.textViewSp);
-            tvHR   = itemView.findViewById(R.id.textViewHR);
+            layoutDelete = itemView.findViewById(R.id.layout_deleter);
+            tvSp = itemView.findViewById(R.id.textViewSp);
+            tvHR = itemView.findViewById(R.id.textViewHR);
             tvTime = itemView.findViewById(R.id.textViewTime);
         }
     }
