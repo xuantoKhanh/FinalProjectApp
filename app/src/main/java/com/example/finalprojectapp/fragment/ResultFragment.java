@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class ResultFragment extends Fragment {
 
     Float i;
+    Integer m;
 
     DatabaseReference mData;
     TextView textViewHR, textViewSpo2, text;
@@ -45,6 +46,7 @@ public class ResultFragment extends Fragment {
         text = (TextView) view.findViewById(R.id.banner);
         getSPFInstance();
         mData = FirebaseDatabase.getInstance().getReference();
+
         keys = ResultFragment.spf.getString("LISTDATA");
         if (!keys.equalsIgnoreCase(""))
             mList = UIModel.getInstance().provideGSon().fromJson(ResultFragment.spf.getString("LISTDATA"), new TypeToken<ArrayList<Data>>() {
@@ -77,6 +79,11 @@ public class ResultFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.e("SP -- ", snapshot.getValue().toString());
                 textViewSpo2.setText(snapshot.getValue().toString());
+
+                int m = Integer.parseInt(snapshot.getValue().toString());
+                if (m < 94) {
+                    Toast.makeText(getActivity(), "Your Blood Oxigen is abnormal!", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override

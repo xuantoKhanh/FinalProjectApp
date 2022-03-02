@@ -23,7 +23,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     private EditText    emailEditText;
     private Button      resetPasswordButton;
     private ProgressBar progressBar;
-    private TextView banner;
+    private TextView    banner;
 
     FirebaseAuth auth;
 
@@ -36,15 +36,13 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
-        emailEditText       = (EditText) findViewById(R.id.email);
-
         resetPasswordButton = (Button) findViewById(R.id.resetPassword);
         resetPasswordButton.setOnClickListener(this);
+
+        emailEditText       = (EditText) findViewById(R.id.email);
         progressBar         = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
-
-
     }
 
     @Override
@@ -61,7 +59,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
 
     private void resetPassword(){
         String email = emailEditText.getText().toString().trim();
-
         if(email.isEmpty()){
             emailEditText.setError("Email is required!");
             emailEditText.requestFocus();
