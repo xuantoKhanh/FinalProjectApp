@@ -64,8 +64,6 @@ public class ResultFragment extends Fragment {
                 if (i < 60.00 || i > 100.00) {
                     Toast.makeText(getActivity(), "Your Heart Rate is abnormal!", Toast.LENGTH_LONG).show();
                 }
-
-
             }
 
             @Override
@@ -91,8 +89,6 @@ public class ResultFragment extends Fragment {
 
             }
         });
-
-
         return view;
     }
 
@@ -127,7 +123,6 @@ public class ResultFragment extends Fragment {
     }
 
     public static MySharedPreferences spf;
-
     public MySharedPreferences getSPFInstance() {
         if (spf == null) {
             spf = new MySharedPreferences(getContext());
